@@ -1,0 +1,34 @@
+<h2 class="page-header">Edit</h2>
+<form #editForm="ngForm" (ngSubmit)="onEditSubmit()">
+	<div class="form-group">
+		<label>Name</label>
+		<input type="text" [(ngModel)]="name" name="name" class="form-control" #nameVal="ngModel"
+			[ngModelOptions]="{ updateOn: 'blur' }" [class.is-invalid]="nameVal.invalid && nameVal.touched" required>
+	</div>
+	<div class="form-group">
+		<label>Username</label>
+		<input type="text" [(ngModel)]="username" name="username" class="form-control" #usernameVal="ngModel"
+			[ngModelOptions]="{ updateOn: 'blur' }" [class.is-invalid]="usernameVal.invalid && usernameVal.touched"
+			required>
+	</div>
+	<div class="form-group">
+		<label>Email</label>
+		<input type="email" [(ngModel)]="email" name="email" class="form-control" #emailVal="ngModel"
+			[ngModelOptions]="{ updateOn: 'blur' }" [class.is-invalid]="emailVal.invalid && emailVal.touched"
+			pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required>
+		<div *ngIf="emailVal.invalid && (emailVal.dirty || emailVal.touched) && emailVal.errors?.pattern"
+			class="alert text-danger" role="alert">
+			Please provide a valid email address
+		</div>
+	</div>
+	<div class="form-group">
+		<label>Password</label>
+		<input type="password" [(ngModel)]="password" name="password" class="form-control" #passwordVal="ngModel"
+			[ngModelOptions]="{ updateOn: 'blur' }" minlength="8">
+		<div *ngIf="passwordVal.invalid && (passwordVal.dirty || passwordVal.touched) && passwordVal.errors?.minlength"
+			class="alert text-danger" role="alert">
+			Password must be at least 8 characters long
+		</div>
+	</div>
+	<input type="submit" class="btn btn-primary" value="Update" [disabled]="editForm.invalid">
+</form>

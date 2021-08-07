@@ -1,4 +1,8 @@
 <div *ngIf="user">
+	<div>
+		<a class="btn btn-primary" routerLink="/edit">Edit</a>
+		<a class="btn btn-danger" (click)="onDeleteClick()">Delete</a>
+	</div>
 	<h2 class="page-header">{{user.name}}</h2>
 	<ul class="list-group">
 		<li class="list-group-item">Username : {{user.username}}</li>

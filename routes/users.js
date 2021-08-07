@@ -20,16 +20,23 @@ router.post("/register", (req, res, next) => {
 });
 
 router.post("/update", (req, res, next) => {
-	let newUser = User({
+	let newUser = {
 		name: req.body.name,
 		email: req.body.email,
 		username: req.body.username,
 		password: req.body.password
+	};
+	console.log(req.body);
+	User.updateUser(req.body.id, newUser, (err, user) => {
+		if (err) res.json({ success: false, msg: "Failed to update user" });
+		else res.json({ success: true, msg: "User updated" });
 	});
+});
 
-	User.addUser(newUser, (err, user) => {
-		if (err) res.json({ success: false, msg: "Failed to register user" });
-		else res.json({ success: true, msg: "User registered" });
+router.post("/delete", (req, res, next) => {
+	User.deleteUser(req.body.id, (err, user) => {
+		if (err) res.json({ success: false, msg: "Failed to delete user" });
+		else res.json({ success: true, msg: "User deleted" });
 	});
 });
 
@@ -52,8 +59,8 @@ router.post("/authenticate", (req, res, next) => {
 				});
 				res.json({
 					success: true,
-					// token: `Bearer ${token}`, // Development
-					token: token, // Production
+					token: `Bearer ${token}`, // Development
+					// token: token, // Production
 					user: {
 						id: user._id,
 						name: user.name,

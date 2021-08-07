@@ -31,9 +31,18 @@ export class AuthService {
 
   getProfile() {
     this.loadToken()
-    console.log(this.authToken)
     let headers = new HttpHeaders().append('Authorization', this.authToken);
     return this.http.get<any>('http://localhost:3000/users/profile', { headers: headers });
+  }
+
+  deleteUser(id: any) {
+    let headers = new HttpHeaders().append('Content-Type', 'application/json');
+    return this.http.post<any>('http://localhost:3000/users/delete', id, { headers: headers })
+  }
+
+  updateUser(user: any) {
+    let headers = new HttpHeaders().append('Content-Type', 'application/json');
+    return this.http.post<any>('http://localhost:3000/users/update', user, { headers: headers })
   }
 
   loadToken() {

@@ -49,18 +49,22 @@ module.exports.addUser = function (newUser, callback) {
 	});
 };
 
-module.exports.updateUser = function (user, callback) {
-	if (user.password === "") delete user.password;
-	else {
+module.exports.updateUser = function (id, user, callback) {
+	if (user.password === "") {
+		delete user.password;
+		User.updateOne({ _id: id }, user, callback);
+	} else {
 		bcrypt.genSalt(10, (err, salt) => {
 			if (err) throw err;
 			bcrypt.hash(user.password, salt, (err, hash) => {
 				if (err) throw err;
 				user.password = hash;
-				console.log("hash");
+				User.updateOne({ _id: id }, user, callback);
 			});
 		});
 	}
-	console.log(update);
-	User.findOneAndUpdate({ _id: user._id }, user, callback);
+};
+
+module.exports.deleteUser = function (id, callback) {
+	User.deleteOne({ _id: id }, callback);
 };

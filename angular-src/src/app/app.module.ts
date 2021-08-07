@@ -13,12 +13,11 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { EditComponent } from './components/edit/edit.component';
 
 import { AuthService } from './services/auth.service';
 
 import { AuthGuard } from './guard/auth.guard';
-
-import { Router } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -28,7 +27,8 @@ import { Router } from '@angular/router';
     RegisterComponent,
     HomeComponent,
     DashboardComponent,
-    ProfileComponent
+    ProfileComponent,
+    EditComponent
   ],
   imports: [
     BrowserModule,
